@@ -1,0 +1,4 @@
+2018-01-29 21:03:39,851 ERROR    root       I am error message
+2018-01-29 21:03:39,852 CRITICAL root       I am critical message
+2018-01-29 21:09:28,028 ERROR    root       I am error message
+2018-01-29 21:09:28,028 CRITICAL root       I am critical message
