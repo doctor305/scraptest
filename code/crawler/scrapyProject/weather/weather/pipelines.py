@@ -11,13 +11,13 @@ import urllib2
 class WeatherPipeline(object):
     def process_item(self, item, spider):
         today = time.strftime('%Y-%m-%d',time.localtime())
-		fileName = today + '.txt'
-		with open(fileName,'a') as fp:
-			fp.write(item['cityDate'].encode('utf8')+'\t')
-			fp.write(item['week'].encode('utf8')+'\t')
-			fp.write(item['img'].encode('utf8')+'\t')
-			fp.write(item['temperature'].encode('utf8')+'\t')
-			fp.write(item['weather'].encode('utf8')+'\t')
-			fp.write(item['wind'].encode('utf8')+'\t')
-			time.sleep(1)
-		return item
+	fileName = today + '.txt'
+	with open(fileName,'a') as fp:
+	    fp.write(item['cityDate'].encode('utf8')+'\t')
+	    fp.write(item['week'].encode('utf8')+'\t')
+	    fp.write(item['img'].encode('utf8')+'\t')
+	    fp.write(item['temperature'].encode('utf8')+'\t')
+	    fp.write(item['weather'].encode('utf8')+'\t')
+	    fp.write(item['wind'].encode('utf8')+'\t')
+	    time.sleep(1)
+	return item
