@@ -5,7 +5,7 @@ from weather.items import WeatherItem
 class ZhengzhouspiderSpider(scrapy.Spider):
     name = 'zhengzhouspider'
     allowed_domains = ['tianqi.com']
-    citys = ['luoyang','zhengzhou']
+    citys = ['luoyang','zhengzhou','kaifeng','xinxiang']
     start_urls = []
     for city in citys:
 	start_urls.append('http://'+city+'.tianqi.com/')
@@ -13,13 +13,14 @@ class ZhengzhouspiderSpider(scrapy.Spider):
         subSelector =  response.xpath('//ul[@class="raweather760"]')
 	items = []
 	for sub in subSelector:
-	    item = WeatherItem()
-	    item['cityDate']=sub.xpath('./li/a/h5//text()').extract()[0]
-	    item['week']=''
-	    item['img']=sub.xpath('./li/a/i/img/@src').extract()[0]
-	    item['temperature']=sub.xpath('./li/a/p/em//text()').extract()[0]
-	    item['weather']=sub.xpath('./li/a/p/b//text()').extract()[0]
-	    item['wind']=''
-	    items.append(item)
+            for n in range(len(sub.xpath('./li/a/h5//text()').extract())):
+                item = WeatherItem()
+                item['cityDate']=sub.xpath('./li/a/h5//text()').extract()[n]
+                item['week']='null'
+                item['img']=sub.xpath('./li/a/i/img/@src').extract()[n]
+                item['temperature']=sub.xpath('./li/a/p/em//text()').extract()[n]
+                item['weather']=sub.xpath('./li/a/p/b//text()').extract()[n]
+                item['wind']='null'
+                items.append(item)
 	return items
 

@@ -18,6 +18,6 @@ class WeatherPipeline(object):
 	    fp.write(item['img'].encode('utf8')+'\t')
 	    fp.write(item['temperature'].encode('utf8')+'\t')
 	    fp.write(item['weather'].encode('utf8')+'\t')
-	    fp.write(item['wind'].encode('utf8')+'\t')
+	    fp.write(item['wind'].encode('utf8')+'\n\n')
 	    time.sleep(1)
 	return item
