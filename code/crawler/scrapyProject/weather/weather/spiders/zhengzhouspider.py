@@ -10,7 +10,7 @@ class ZhengzhouspiderSpider(scrapy.Spider):
     for city in citys:
 	start_urls.append('http://'+city+'.tianqi.com/')
     def parse(self, response):
-        subSelector =  response.xpath('//ul[@class="raweather760"]')
+        subSelector = response.xpath('//ul[@class="raweather760"]')
 	items = []
 	for sub in subSelector:
             for n in range(len(sub.xpath('./li/a/h5//text()').extract())):
