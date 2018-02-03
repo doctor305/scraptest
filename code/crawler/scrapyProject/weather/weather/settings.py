@@ -67,6 +67,7 @@ ROBOTSTXT_OBEY = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'weather.pipelines.WeatherPipeline': 1,
+    'weather.pipelines_scv.WeatherPipeline': 2,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
