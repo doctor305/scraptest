@@ -12,8 +12,8 @@ class QiushiItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     author = scrapy.Field()
-	content = scrapy.Field()
-	img = scrapy.Field()
-	funNum = scrapy.Field()
-	talkNum = scrapy.Field()
+    content = scrapy.Field()
+    img = scrapy.Field()
+    funNum = scrapy.Field()
+    talkNum = scrapy.Field()
 
