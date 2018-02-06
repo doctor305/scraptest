@@ -17,6 +17,7 @@ class ProxyspiderSpider(scrapy.Spider):
         subSelector = response.xpath('//tr[@class=""]|//tr[@class="odd"]')
         items = []
         for sub in subSelector:
+            print "start spider"
             item = GetproxyItem()
             item['ip'] = sub.xpath('.//td[2]/text()').extract()[0]
             item['port'] = sub.xpath('.//td[3]/text()').extract()[0]
@@ -27,4 +28,5 @@ class ProxyspiderSpider(scrapy.Spider):
                 item['loction'] = sub.xpath('.//td[4]/text()').extract()[0]
             item['protocol'] = sub.xpath('.//td[6]/text()').extract()[0]
             item['source'] = 'xicidaili'
+            print "end"
         return items

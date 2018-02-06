@@ -8,6 +8,7 @@
 
 class GetproxyPipeline(object):
     def process_item(self, item, spider):
+        print "start pipelines"
         filename = 'proxy.txt'
         with open(filename,'a') as fp:
             fp.write(item['ip'].encode('utf8').strip()+'\t')
