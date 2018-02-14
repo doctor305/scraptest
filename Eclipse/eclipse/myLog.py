@@ -4,7 +4,7 @@ __author__ = 'hstking hstking@hotmail.com'
 
 import logging
 import getpass
-import sys
+import time
 
 
 # 定义MyLog类
@@ -14,16 +14,17 @@ class MyLog(object):
 		user = getpass.getuser()
 		self.logger = logging.getLogger(user)
 		self.logger.setLevel(logging.DEBUG)
-		logFile = './' + sys.argv[0][0:-3] + '.log' #日志文件名
+		logFile = './' + time.strftime('%Y%m%d',time.localtime()) + '.log' #日志文件名
 		formatter = logging.Formatter('%(asctime)-12s %(levelname)-8s %(name)-10s %(message)-12s')
 
 		'''日志显示到屏幕上并输出到日志文件内'''
 		logHand = logging.FileHandler(logFile)
 		logHand.setFormatter(formatter)
-		logHand.setLevel(logging.ERROR) #只有错误才会被记录到logfile中
+		logHand.setLevel(logging.DEBUG) #只有错误才会被记录到logfile中
 
 		logHandSt = logging.StreamHandler()
 		logHandSt.setFormatter(formatter)
+		logHandSt.setLevel(logging.DEBUG)
 
 		self.logger.addHandler(logHand)
 		self.logger.addHandler(logHandSt)
