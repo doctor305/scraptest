@@ -5,8 +5,6 @@ Created on 2018��2��13��
 
 @author: jinfeng
 '''
-from selenium import webdriver
-from myLog import MyLog
 
 
 class Item(object):
@@ -38,7 +36,6 @@ class GetProxy(object):
     def getProxyList(self,urls):
         browser = webdriver.PhantomJS()
         proxyList = []
-        item = Item()
         for url in urls:
             self.log.info('open link %s' % url)
             browser.get(url)
@@ -46,6 +43,7 @@ class GetProxy(object):
             elements = browser.find_elements_by_xpath('//tbody/tr')
             self.log.info('number of proxy is %s' % len(elements))
             for element in elements:
+                item = Item()
                 item.ip = element.find_elements_by_xpath('./td')[0].text.encode('utf8')
                 item.port = element.find_elements_by_xpath('./td')[1].text.encode('utf8')
                 item.anonymous = element.find_elements_by_xpath('./td')[2].text.encode('utf8')

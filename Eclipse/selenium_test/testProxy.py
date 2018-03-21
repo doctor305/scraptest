@@ -14,7 +14,7 @@ class TestProxy(object):
     def __init__(self):
         self.sFile = r'proxylist.txt'
         self.dFile = r'alive.txt'
-        self.URL = r'http://www.baidu.com'
+        self.URL = r'https://www.baidu.com'
         self.threads = 10
         self.timeout = 3
         self.regex = re.compile(r'baidu.com')

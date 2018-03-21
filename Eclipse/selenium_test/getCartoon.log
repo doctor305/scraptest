@@ -1,0 +1,18 @@
+2018-02-22 11:22:26,698 INFO     jinfeng    create diretory Bloody Girl漫画 success
+
+2018-02-22 11:23:05,855 ERROR    jinfeng    create directory Bloody Girl漫画 failed, have a same name file or directory
+
+2018-02-22 11:28:54,938 ERROR    jinfeng    create directory Bloody Girl漫画 failed, have a same name file or directory
+
+2018-02-22 11:34:47,351 ERROR    jinfeng    create directory Bloody Girl漫画 failed, have a same name file or directory
+
+2018-02-22 11:37:56,289 ERROR    jinfeng    create directory Bloody Girl漫画 failed, have a same name file or directory
+
+2018-02-22 11:50:02,815 ERROR    jinfeng    create directory Bloody Girl漫画 failed, have a same name file or directory
+
+2018-02-22 11:50:04,382 INFO     jinfeng    save img 1.png success
+
+2018-02-22 14:29:31,509 ERROR    jinfeng    create directory Bloody Girl漫画 failed, have a same name file or directory
+
+2018-02-22 14:29:33,043 INFO     jinfeng    save img 1.png success
+
