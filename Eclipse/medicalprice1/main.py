@@ -24,10 +24,16 @@ class GetInfor(object):
     def __init__(self):
         self.url = 'http://www.china-yao.com/?act=search&typeid=1&keyword=%E7%A1%9D%E9%85%B8%E7%94%98%E6%B2%B9%E7%89%87&page=1'
         self.log = MyLog()
+        self.starttime = time.time()
+        self.log.info(u'爬虫程序开始运行，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.starttime)))
         self.medicallist = self.getmedicallist('name.txt')
         self.items = self.spider(self.medicallist)
-        #self.pipelines(self.items)
-    
+        self.pipelines(self.items)
+        self.endtime = time.time()
+        self.log.info(u'爬虫程序运行结束，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.endtime)))
+        self.usetime = self.endtime - self.starttime
+        self.log.info(u'用时  %d时 %d分%d秒' % (self.usetime//3600,(self.usetime%3600)//60,(self.usetime%3600)%60))
+        
     def getmedicallist(self,filename):
         medicallist = []
         with open(filename,'r') as fp:
@@ -38,7 +44,10 @@ class GetInfor(object):
         
     
     def spider(self,names):
-        pass
+        items = []
+        for name in names:
+            if name != '':
+                
     
     def pipelines(self,medicallist):
         filename = u'西药药品价格数据.xls'.encode('GBK')
