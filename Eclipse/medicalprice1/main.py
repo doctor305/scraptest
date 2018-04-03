@@ -11,6 +11,7 @@ import urllib2
 from myLog import MyLog
 import time
 import xlwt
+import random
 
 class Item(object):
     mc = None #名称
@@ -22,7 +23,6 @@ class Item(object):
     
 class GetInfor(object):
     def __init__(self):
-        self.url = 'http://www.china-yao.com/?act=search&typeid=1&keyword=%E7%A1%9D%E9%85%B8%E7%94%98%E6%B2%B9%E7%89%87&page=1'
         self.log = MyLog()
         self.starttime = time.time()
         self.log.info(u'爬虫程序开始运行，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.starttime)))
@@ -41,12 +41,50 @@ class GetInfor(object):
             for name in s.split():
                 medicallist.append(name)
         self.log.info(u'从文件%s 中读取药品名称成功！获取药品名称 %d 个' % (filename,len(medicallist)))
+        return medicallist
         
     
     def spider(self,names):
+        n = 1
         items = []
         for name in names:
             if name != '':
+                self.log.info(u'尝试爬取%s 信息' % name.decode('GBK'))
+                url = 'http://www.china-yao.com/?act=search&typeid=1&keyword='+name.decode('GBK')
+                htmlcontent = self.getresponsecontent(url)
+                soup = BeautifulSoup(htmlcontent,'lxml')
+                tagul = soup.find('ul',attrs={'class':'pagination'})
+                tagindex = tagul.find_all('a')
+                self.log.info(u'此药品信息共%d 页' % len(tagindex))
+                if len(tagindex) == 0:
+                    index = 0
+                else:
+                    try:
+                        index = int(tagindex[-1].get_text().strip())
+                    except:
+                        index = int(tagindex[-2].get_text().strip())
+                for i in range(1,index+1):
+                    newurl = url+'&page='+str(i)
+                    newhtmlcontent = self.getresponsecontent(newurl)
+                    soup = BeautifulSoup(newhtmlcontent,'lxml')
+                    tagtbody = soup.find('tbody')
+                    tagtr = tagtbody.find_all('tr')
+                    self.log.info(u'该页面共有记录 %d 条，开始爬取' % len(tagtr))
+                    for tr in tagtr:
+                        tagtd = tr.find_all('td')
+                        item = Item()
+                        item.mc = tagtd[0].get_text().strip()
+                        item.jx = tagtd[1].get_text().strip()
+                        item.gg = tagtd[2].get_text().strip()
+                        item.ghj = tagtd[3].get_text().strip()
+                        item.lsj = tagtd[4].get_text().strip()
+                        item.scqy = tagtd[5].get_text().strip()
+                        items.append(item)
+                    self.log.info(u'页面%s 数据已保存' % newurl)
+                    sleeptime = random.randint(2,30)/10.0
+                    time.sleep(sleeptime)
+                
+        return items
                 
     
     def pipelines(self,medicallist):
@@ -77,6 +115,7 @@ class GetInfor(object):
             response = urllib2.urlopen(url.encode('utf8'))
         except:
             self.log.error(u'返回 URL: %s 数据失败' % url)
+            return ''
         else:
             self.log.info(u'返回URL: %s 数据成功' % url)
             return response
