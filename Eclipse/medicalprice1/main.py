@@ -45,7 +45,6 @@ class GetInfor(object):
         
     
     def spider(self,names):
-        n = 1
         items = []
         for name in names:
             if name != '':
@@ -56,6 +55,7 @@ class GetInfor(object):
                 tagul = soup.find('ul',attrs={'class':'pagination'})
                 tagindex = tagul.find_all('a')
                 self.log.info(u'此药品信息共%d 页' % len(tagindex))
+                time.sleep(1)
                 if len(tagindex) == 0:
                     index = 0
                 else:
@@ -81,9 +81,9 @@ class GetInfor(object):
                         item.scqy = tagtd[5].get_text().strip()
                         items.append(item)
                     self.log.info(u'页面%s 数据已保存' % newurl)
-                    sleeptime = random.randint(2,30)/10.0
+                    sleeptime = random.randint(6,12)
                     time.sleep(sleeptime)
-                
+        self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))        
         return items
                 
     
