@@ -11,6 +11,7 @@ import urllib2
 from myLog import MyLog
 import time
 import xlwt
+import csv
 import random
 
 class Item(object):
@@ -28,7 +29,7 @@ class GetInfor(object):
         self.log.info(u'爬虫程序开始运行，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.starttime)))
         self.medicallist = self.getmedicallist('name.txt')
         self.items = self.spider(self.medicallist)
-        self.pipelines(self.items)
+        self.pipelines_csv(self.items)
         self.endtime = time.time()
         self.log.info(u'爬虫程序运行结束，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.endtime)))
         self.usetime = self.endtime - self.starttime
@@ -46,6 +47,7 @@ class GetInfor(object):
     
     def spider(self,names):
         items = []
+        n = 0
         for name in names:
             if name != '':
                 self.log.info(u'尝试爬取%s 信息' % name.decode('GBK'))
@@ -81,13 +83,16 @@ class GetInfor(object):
                         item.scqy = tagtd[5].get_text().strip()
                         items.append(item)
                     self.log.info(u'页面%s 数据已保存' % newurl)
-                    sleeptime = random.randint(6,12)
+                    sleeptime = random.randint(6,10)
                     time.sleep(sleeptime)
-        self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))        
+                n += 1
+                if n >= 5:
+                    break
+        self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))
         return items
                 
     
-    def pipelines(self,medicallist):
+    def pipelines_xls(self,medicallist):
         filename = u'西药药品价格数据.xls'.encode('GBK')
         self.log.info(u'准备保存数据到excel中...')
         book = xlwt.Workbook(encoding = 'utf8',style_compression=0)
@@ -109,6 +114,15 @@ class GetInfor(object):
         book.save(filename)
         self.log.info(u'excel文件保存成功！')
         
+    def pipelines_csv(self,medicallist):
+        filename = u'西药药品价格数据.csv'.encode('GBK')
+        self.log.info(u'准备保存数据到csv中...')
+        writer = csv.writer(file(filename,'wb'))
+        writer.writerow([u'名称'.encode('utf8'),u'剂型'.encode('utf8'),u'规格'.encode('utf8'),u'供货价'.encode('utf8'),u'零售价'.encode('utf8'),u'生产企业'.encode('utf8')])
+        for i in range(1,len(medicallist)+1):
+            item = medicallist[i-1]
+            writer.writerow([item.mc.encode('utf8'),item.jx.encode('utf8'),item.gg.encode('utf8'),item.ghj.encode('utf8'),item.lsj.encode('utf8'),item.scqy.encode('utf8')])
+        self.log.info(u'csv文件保存成功！')
     
     def getresponsecontent(self,url):
         try:
