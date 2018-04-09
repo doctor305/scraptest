@@ -29,7 +29,7 @@ class GetInfor(object):
         self.log.info(u'爬虫程序开始运行，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.starttime)))
         self.medicallist = self.getmedicallist('name.txt')
         self.items = self.spider(self.medicallist)
-        self.pipelines_csv(self.items)
+        self.pipelines_xls(self.items)
         self.endtime = time.time()
         self.log.info(u'爬虫程序运行结束，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.endtime)))
         self.usetime = self.endtime - self.starttime
@@ -55,17 +55,17 @@ class GetInfor(object):
                 htmlcontent = self.getresponsecontent(url)
                 soup = BeautifulSoup(htmlcontent,'lxml')
                 tagul = soup.find('ul',attrs={'class':'pagination'})
-                tagindex = tagul.find_all('a')
-                self.log.info(u'此药品信息共%d 页' % len(tagindex))
+                tagpage = tagul.find_all('a')
+                self.log.info(u'此药品信息共%d 页' % len(tagpage))
                 time.sleep(1)
-                if len(tagindex) == 0:
-                    index = 0
+                if len(tagpage) == 0:
+                    page = 0
                 else:
                     try:
-                        index = int(tagindex[-1].get_text().strip())
+                        page = int(tagpage[-1].get_text().strip())
                     except:
-                        index = int(tagindex[-2].get_text().strip())
-                for i in range(1,index+1):
+                        page = int(tagpage[-2].get_text().strip())
+                for i in range(1,page+1):
                     newurl = url+'&page='+str(i)
                     newhtmlcontent = self.getresponsecontent(newurl)
                     soup = BeautifulSoup(newhtmlcontent,'lxml')

@@ -1,20 +1,112 @@
-2018-03-21 17:02:30,253 INFO     jinfeng    从文件name.txt 中读取药品名称成功！获取药品名称 851 个
+2018-04-09 09:16:57,262 INFO     jinfeng    爬虫程序开始运行，时间： 2018-04-09 09:16:57
 
-2018-03-29 11:02:12,640 INFO     jinfeng    爬虫程序开始运行，时间： 2018-03-29 11:02:12
+2018-04-09 09:16:57,325 INFO     jinfeng    从文件name.txt 中读取药品名称成功！获取药品名称 4 个
 
-2018-03-29 11:02:22,740 INFO     jinfeng    爬虫程序运行结束，时间： 2018-03-29 11:02:22
+2018-04-09 09:16:57,325 INFO     jinfeng    尝试爬取生脉饮口服液 信息
 
-2018-03-29 11:02:22,740 INFO     jinfeng    用时  0时 0分10秒
+2018-04-09 09:16:58,213 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=生脉饮口服液 数据成功
 
-2018-03-29 11:03:23,342 INFO     jinfeng    爬虫程序开始运行，时间： 2018-03-29 11:03:23
+2018-04-09 09:16:58,230 INFO     jinfeng    此药品信息共1 页   
 
-2018-03-29 11:03:28,944 INFO     jinfeng    爬虫程序运行结束，时间： 2018-03-29 11:03:28
+2018-04-09 09:17:00,226 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=生脉饮口服液&page=1 数据成功
 
-2018-03-29 11:03:28,944 INFO     jinfeng    用时  0时 0分5秒 
+2018-04-09 09:17:00,257 INFO     jinfeng    该页面共有记录 1 条，开始爬取
 
-2018-03-29 11:04:18,911 INFO     jinfeng    爬虫程序开始运行，时间： 2018-03-29 11:04:18
+2018-04-09 09:17:00,257 INFO     jinfeng    页面http://www.china-yao.com/?act=search&typeid=1&keyword=生脉饮口服液&page=1 数据已保存
 
-2018-03-29 11:04:24,513 INFO     jinfeng    爬虫程序运行结束，时间： 2018-03-29 11:04:24
+2018-04-09 09:17:07,278 INFO     jinfeng    尝试爬取肠溶阿司匹林 信息
 
-2018-03-29 11:04:24,515 INFO     jinfeng    用时  0时 0分5秒 
+2018-04-09 09:17:08,104 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=肠溶阿司匹林 数据成功
+
+2018-04-09 09:17:08,167 INFO     jinfeng    此药品信息共0 页   
+
+2018-04-09 09:17:09,180 INFO     jinfeng    尝试爬取碳酸氢钠250ml 信息
+
+2018-04-09 09:17:10,101 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=碳酸氢钠250ml 数据成功
+
+2018-04-09 09:17:10,117 INFO     jinfeng    此药品信息共0 页   
+
+2018-04-09 09:17:11,161 INFO     jinfeng    尝试爬取参附注射液 信息
+
+2018-04-09 09:17:12,191 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液 数据成功
+
+2018-04-09 09:17:12,285 INFO     jinfeng    此药品信息共2 页   
+
+2018-04-09 09:17:14,266 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=1 数据成功
+
+2018-04-09 09:17:14,375 INFO     jinfeng    该页面共有记录 12 条，开始爬取
+
+2018-04-09 09:17:14,407 INFO     jinfeng    页面http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=1 数据已保存
+
+2018-04-09 09:17:23,299 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=2 数据成功
+
+2018-04-09 09:17:23,377 INFO     jinfeng    该页面共有记录 11 条，开始爬取
+
+2018-04-09 09:17:23,407 INFO     jinfeng    页面http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=2 数据已保存
+
+2018-04-09 09:17:33,438 INFO     jinfeng    数据爬取结束，共获取 24条数据。
+
+2018-04-09 09:17:33,470 INFO     jinfeng    准备保存数据到csv中...
+
+2018-04-09 09:17:33,486 INFO     jinfeng    csv文件保存成功！  
+
+2018-04-09 09:17:33,500 INFO     jinfeng    爬虫程序运行结束，时间： 2018-04-09 09:17:33
+
+2018-04-09 09:17:33,516 INFO     jinfeng    用时  0时 0分36秒
+
+2018-04-09 09:18:32,145 INFO     jinfeng    爬虫程序开始运行，时间： 2018-04-09 09:18:32
+
+2018-04-09 09:18:32,240 INFO     jinfeng    从文件name.txt 中读取药品名称成功！获取药品名称 4 个
+
+2018-04-09 09:18:32,270 INFO     jinfeng    尝试爬取生脉饮口服液 信息
+
+2018-04-09 09:18:33,861 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=生脉饮口服液 数据成功
+
+2018-04-09 09:18:33,956 INFO     jinfeng    此药品信息共1 页   
+
+2018-04-09 09:18:35,828 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=生脉饮口服液&page=1 数据成功
+
+2018-04-09 09:18:35,875 INFO     jinfeng    该页面共有记录 1 条，开始爬取
+
+2018-04-09 09:18:35,890 INFO     jinfeng    页面http://www.china-yao.com/?act=search&typeid=1&keyword=生脉饮口服液&page=1 数据已保存
+
+2018-04-09 09:18:43,924 INFO     jinfeng    尝试爬取肠溶阿司匹林 信息
+
+2018-04-09 09:18:47,153 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=肠溶阿司匹林 数据成功
+
+2018-04-09 09:18:56,684 INFO     jinfeng    此药品信息共0 页   
+
+2018-04-09 09:18:57,730 INFO     jinfeng    尝试爬取碳酸氢钠250ml 信息
+
+2018-04-09 09:18:59,102 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=碳酸氢钠250ml 数据成功
+
+2018-04-09 09:19:07,510 INFO     jinfeng    此药品信息共0 页   
+
+2018-04-09 09:19:08,556 INFO     jinfeng    尝试爬取参附注射液 信息
+
+2018-04-09 09:19:09,555 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液 数据成功
+
+2018-04-09 09:19:09,617 INFO     jinfeng    此药品信息共2 页   
+
+2018-04-09 09:19:11,443 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=1 数据成功
+
+2018-04-09 09:19:11,566 INFO     jinfeng    该页面共有记录 12 条，开始爬取
+
+2018-04-09 09:19:11,598 INFO     jinfeng    页面http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=1 数据已保存
+
+2018-04-09 09:19:23,049 INFO     jinfeng    返回URL: http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=2 数据成功
+
+2018-04-09 09:19:23,407 INFO     jinfeng    该页面共有记录 11 条，开始爬取
+
+2018-04-09 09:19:23,486 INFO     jinfeng    页面http://www.china-yao.com/?act=search&typeid=1&keyword=参附注射液&page=2 数据已保存
+
+2018-04-09 09:19:33,548 INFO     jinfeng    数据爬取结束，共获取 24条数据。
+
+2018-04-09 09:19:33,595 INFO     jinfeng    准备保存数据到excel中...
+
+2018-04-09 09:19:33,719 INFO     jinfeng    excel文件保存成功！
+
+2018-04-09 09:19:33,766 INFO     jinfeng    爬虫程序运行结束，时间： 2018-04-09 09:19:33
+
+2018-04-09 09:19:33,782 INFO     jinfeng    用时  0时 1分1秒 
 
