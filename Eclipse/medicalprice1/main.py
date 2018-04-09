@@ -47,7 +47,7 @@ class GetInfor(object):
     
     def spider(self,names):
         items = []
-        n = 0
+##        n = 0
         for name in names:
             if name != '':
                 self.log.info(u'尝试爬取%s 信息' % name.decode('GBK'))
@@ -85,9 +85,9 @@ class GetInfor(object):
                     self.log.info(u'页面%s 数据已保存' % newurl)
                     sleeptime = random.randint(6,10)
                     time.sleep(sleeptime)
-                n += 1
-                if n >= 5:
-                    break
+##                n += 1
+##                if n >= 5:
+##                    break
         self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))
         return items
                 
