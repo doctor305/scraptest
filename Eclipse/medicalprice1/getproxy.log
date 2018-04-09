@@ -1,0 +1,116 @@
+2018-04-09 15:23:28,667 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:23:28,683 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:23:29,338 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:23:29,558 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/2 数据失败
+
+2018-04-09 15:25:20,921 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:25:20,921 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:25:21,421 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:25:22,730 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/2 数据成功
+
+2018-04-09 15:25:23,121 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/3 数据失败
+
+2018-04-09 15:27:12,259 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:27:12,259 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:27:22,760 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:27:22,996 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/2 数据失败
+
+2018-04-09 15:33:31,252 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:33:31,252 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:33:42,000 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:33:47,463 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/2 数据成功
+
+2018-04-09 15:33:47,670 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/3 数据失败
+
+2018-04-09 15:34:36,111 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:34:36,111 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:34:46,628 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:34:46,862 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/2 数据失败
+
+2018-04-09 15:38:22,776 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:38:22,776 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:38:33,306 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:38:33,683 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/2 数据失败
+
+2018-04-09 15:39:32,655 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:39:32,655 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:39:43,200 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:39:43,592 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/2 数据失败
+
+2018-04-09 15:44:07,848 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:44:07,848 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:44:18,561 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:44:18,953 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/2 数据失败
+
+2018-04-09 15:44:19,374 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/3 数据失败
+
+2018-04-09 15:44:19,608 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/4 数据成功
+
+2018-04-09 15:44:19,765 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/5 数据失败
+
+2018-04-09 15:44:21,279 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/6 数据成功
+
+2018-04-09 15:44:21,747 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/7 数据失败
+
+2018-04-09 15:44:21,937 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/8 数据失败
+
+2018-04-09 15:44:22,374 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/9 数据成功
+
+2018-04-09 15:44:22,858 ERROR    jinfeng    返回 URL: https://www.kuaidaili.com/free/inha/10 数据失败
+
+2018-04-09 15:44:22,858 INFO     jinfeng    获取到代理服务器地址，共 60 个
+
+2018-04-09 15:44:22,858 INFO     jinfeng    准备将获取到的代理服务器地址保存数据到csv文件中...
+
+2018-04-09 15:45:38,220 INFO     jinfeng    Get_proxy 开始运行！
+
+2018-04-09 15:45:38,220 INFO     jinfeng    获取需要访问的url，共 10 个
+
+2018-04-09 15:45:48,917 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/1 数据成功
+
+2018-04-09 15:45:59,128 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/2 数据成功
+
+2018-04-09 15:46:09,575 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/3 数据成功
+
+2018-04-09 15:46:20,055 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/4 数据成功
+
+2018-04-09 15:46:30,482 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/5 数据成功
+
+2018-04-09 15:46:40,971 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/6 数据成功
+
+2018-04-09 15:46:51,552 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/7 数据成功
+
+2018-04-09 15:47:02,160 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/8 数据成功
+
+2018-04-09 15:47:12,933 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/9 数据成功
+
+2018-04-09 15:47:23,539 INFO     jinfeng    返回URL: https://www.kuaidaili.com/free/inha/10 数据成功
+
+2018-04-09 15:47:23,572 INFO     jinfeng    获取到代理服务器地址，共 150 个
+
+2018-04-09 15:47:23,572 INFO     jinfeng    准备将获取到的代理服务器地址保存数据到csv文件中...
+
