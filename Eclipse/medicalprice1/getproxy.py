@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 import urllib2
 from myLog import MyLog
 import csv
-from twisted.python.compat import items
 import time
+import re
 
 class Item(object):
     IP = None  #IP地址
@@ -27,7 +27,9 @@ class Get_proxy(object):
         self.log.info(u'获取需要访问的url，共 %d 个' % len(self.urls))
         self.proxy_list = self.spider(self.urls)
         self.log.info(u'获取到代理服务器地址，共 %d 个' % len(self.proxy_list))
-        self.pipelines(self.proxy_list)
+        self.alivelist = self.testproxy(self.proxy_list)
+        self.pipelines(self.alivelist)
+        self.log.info(u'Get_proxy 运行结束！')
     
     def get_urls(self):
         urls = []
@@ -70,43 +72,47 @@ class Get_proxy(object):
             
         return items
     
+    def testproxy(self,proxylist):
+        self.log.info(u'开始对获取到的代理服务器进行测试 ...')
+        aliveList = []
+        ip_list = []
+        URL = r'https://www.baidu.com'
+        regex = re.compile(r'baidu.com')
+        for proxy in proxylist:
+            if proxy.IP in ip_list:
+                continue   #去除列表中重复的代理服务器
+            server = proxy.type.lower() + r'://' + proxy.IP + ':' + proxy.port
+            self.log.info(u'开始测试 %s' % server)
+            opener = urllib2.build_opener(urllib2.ProxyHandler({proxy.type.lower():server}))
+            urllib2.install_opener(opener)
+            try:
+                response = urllib2.urlopen(URL,timeout=3)
+            except:
+                self.log.info(u'%s 连接失败' % server)
+                continue
+            else:
+                try:
+                    string = response.read()
+                except:
+                    self.log.info(u'%s 连接失败' % server)
+                    continue
+                if regex.search(string):
+                    self.log.info(u'%s 连接成功 .......' % server)
+                    ip_list.append(proxy.IP)
+                    aliveList.append(proxy)
+        return aliveList
+            
     
-    def pipelines(self,proxylist):
-        filename = u'代理服务器列表.csv'.encode('GBK')
+    def pipelines(self,alivelist):
+        filename = 'proxylist.csv'
         self.log.info(u'准备将获取到的代理服务器地址保存数据到csv文件中...')
         writer = csv.writer(file(filename,'wb'))
-        writer.writerow([u'IP地址'.encode('utf8'),u'端口'.encode('utf8'),u'类型'.encode('utf8'),u'地址'.encode('utf8')])
-        for m in range(len(proxylist)):
-            writer.writerow([proxylist[m].IP.encode('utf8'),proxylist[m].port.encode('utf8'),proxylist[m].type.encode('utf8'),proxylist[m].address.encode('utf8')])
-
-        
-def testproxy(proxylist):
-    aliveList = []
-    URL = r'https://www.baidu.com'
-    lineList = line.split('\t')
-    protocol = lineList[3].lower()
-    server = protocol + r'://' + lineList[0] + ':' + lineList[1]
-    opener = urllib2.build_opener(urllib2.ProxyHandler({protocol:server}))
-    urllib2.install_opener(opener)
-    try:
-        response = urllib2.urlopen(URL,timeout=3)
-    except:
-        print '%s connect failed' % server
-        return
-    else:
-        try:
-            string = response.read()
-        except:
-            print '%s connect failed' % server
-            return
-        if regex.search(string):
-            print '%s connect success .......' % server
-            aliveList.append(line)
+        #writer.writerow([u'IP地址'.encode('utf8'),u'端口'.encode('utf8'),u'类型'.encode('utf8'),u'地址'.encode('utf8')])
+        for aliveproxy in alivelist:
+            writer.writerow([aliveproxy.IP.encode('utf8'),aliveproxy.port.encode('utf8'),aliveproxy.type.encode('utf8'),aliveproxy.address.encode('utf8')])
+        self.log.info(u'数据保存完毕！')
 
 if __name__ == '__main__':
-    #Get_proxy()
-    filename = u'代理服务器列表.csv'.encode('GBK')
-    reader = csv.reader(file(filename,'rb'))
-    print list(reader)
-    #testproxy(list(reader))
+    Get_proxy()
+    
     
