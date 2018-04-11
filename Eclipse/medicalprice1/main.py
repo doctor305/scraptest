@@ -14,6 +14,7 @@ import xlwt
 import csv
 import random
 from getproxy import Get_proxy
+import threading
 
 class Item(object):
     mc = None #名称
@@ -25,14 +26,17 @@ class Item(object):
     
 class GetInfor(object):
     def __init__(self):
-        Get_proxy()
+        #Get_proxy()
         self.log = MyLog()
+        self.items = []
+        self.thread = 5
         self.starttime = time.time()
         self.log.info(u'爬虫程序开始运行，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.starttime)))
         self.medicallist = self.getmedicallist('name.txt')
         self.proxylist = self.getproxylist('proxylist.csv')
         self.urls = self.geturls(self.medicallist)
-        self.items = self.spider(self.urls)
+        self.run(self.urls,self.thread)
+        self.log.info(u'共获取信息  %d 条' % len(self.items))
         self.pipelines_xls(self.items)
         self.endtime = time.time()
         self.log.info(u'爬虫程序运行结束，时间： %s' % time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(self.endtime)))
@@ -53,7 +57,9 @@ class GetInfor(object):
         reader = csv.reader(open(filename,'rb'))
         for proxy in reader:
             proxylist.append(proxy)
+            print proxy
         return proxylist
+    
     def geturls(self,names):
         urls = []
         for name in names:
@@ -62,7 +68,7 @@ class GetInfor(object):
                 url = 'http://www.china-yao.com/?act=search&typeid=1&keyword='+name.decode('GBK')
                 htmlcontent = self.getresponsecontent(url)
                 if htmlcontent == '':
-                    self.log.info(u'药品 %s 信息获取失败！' % name)
+                    self.log.info(u'药品 %s 信息获取失败！' % name.decode('GBK'))
                     with open('namelist_error.txt','a') as namelist_error:
                         namelist_error.write(name+'\n')
                     continue
@@ -83,15 +89,15 @@ class GetInfor(object):
                     urls.append(newurl)
         return urls
     
-    def spider(self,urls):
-        items = []
-        
+    def spider(self,urls,thread_num):
+        filename_error = u'%d号线程访问失败url列表.txt'.encode('GBK')
 ##        n = 0
         for url in urls:
             htmlcontent = self.getresponsecontent(url)
             if htmlcontent == '':
                 self.log.info(u'%s 页面读取失败！' % url)
-                self.
+                with open(filename_error,'a') as f_error:
+                    f_error.write(url+'\n') 
                 continue
             soup = BeautifulSoup(htmlcontent,'lxml')
             tagtbody = soup.find('tbody')
@@ -106,16 +112,30 @@ class GetInfor(object):
                 item.ghj = tagtd[3].get_text().strip()
                 item.lsj = tagtd[4].get_text().strip()
                 item.scqy = tagtd[5].get_text().strip()
-                items.append(item)
+                self.items.append(item)
             self.log.info(u'页面%s 数据已保存' % url)
             sleeptime = random.randint(2,5)
             time.sleep(sleeptime)
 ##                n += 1
 ##                if n >= 5:
 ##                    break
-        self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))
-        return items
-                
+       # self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))
+        
+    def run(self,urls,thread):
+        urls_list = []
+        if len(urls)%thread==0:
+            length = len(urls)//thread
+        else:
+            length = len(urls)//thread+1
+        for i in range(thread):
+            urls_list.append(urls[length*i:length*i+length])
+        self.log.info(u'开始多线程模式，线程数： %d' % thread)
+        for j in range(1,thread+1):
+            t = threading.Thread(target=self.spider,args=(urls_list[j-1],j,))
+            t.start()
+        t.join()
+        self.log.info(u'多线程模式结束')
+                    
     
     def pipelines_xls(self,medicallist):
         filename = u'西药药品价格数据.xls'.encode('GBK')
@@ -153,17 +173,21 @@ class GetInfor(object):
         Headers = {"User-Agent":"Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11"}
         request = urllib2.Request(url.encode('utf8'),headers = Headers)
         proxy = random.choice(self.proxylist)
-        server = proxy.type.lower() + r'://' + proxy.IP + ':' + proxy.port
-        opener = urllib2.build_opener(urllib2.ProxyHandler({proxy.type.lower():server}))
+        server = proxy[2].lower() + r'://' + proxy[0] + ':' + proxy[1]
+        print server
+        print url
+        opener = urllib2.build_opener(urllib2.ProxyHandler({proxy[2].lower():server}))
         urllib2.install_opener(opener)
         try:
-            response = urllib2.urlopen(request)
+            response = urllib2.urlopen(request,timeout=3)
         except:
             self.log.error(u'返回 URL: %s 数据失败' % url)
             return ''
         else:
             self.log.info(u'返回URL: %s 数据成功' % url)
-            return response
+            print '#'*10
+            print response.read()
+            return response.read()
 
 if __name__ == '__main__':
     GetInfor()
