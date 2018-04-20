@@ -33,9 +33,9 @@ class Get_proxy(object):
     
     def get_urls(self):
         urls = []
-        num_max = 10
+        num_max = 20
         for n in range(1,num_max+1):
-            url = 'https://www.kuaidaili.com/free/inha/'+str(n)
+            url = 'http://www.xicidaili.com/wn/'+str(n)
             urls.append(url)
         return urls
     
@@ -59,15 +59,14 @@ class Get_proxy(object):
             if htmlcontent == '':
                 continue
             soup = BeautifulSoup(htmlcontent,'lxml')
-            tagtbody = soup.find('tbody')
-            proxys = tagtbody.find_all('tr')
+            proxys = soup.find_all('tr',attrs={'class':'odd'})
             for proxy in proxys:
                 item = Item()
                 elements = proxy.find_all('td')
-                item.IP = elements[0].get_text().strip()
-                item.port = elements[1].get_text().strip()
-                item.type = elements[3].get_text().strip()
-                item.address = elements[4].get_text().strip()
+                item.IP = elements[1].get_text().strip()
+                item.port = elements[2].get_text().strip()
+                item.address = elements[3].get_text().strip()
+                item.type = elements[5].get_text().strip()
                 items.append(item)
             
         return items

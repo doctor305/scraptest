@@ -13,7 +13,7 @@ import time
 import xlwt
 import csv
 import random
-from getproxy import Get_proxy
+from getproxy2 import Get_proxy
 import threading
 
 class Item(object):
@@ -26,7 +26,7 @@ class Item(object):
     
 class GetInfor(object):
     def __init__(self):
-        #Get_proxy()
+        Get_proxy()
         self.log = MyLog()
         self.items = []
         self.thread = 5
@@ -57,13 +57,13 @@ class GetInfor(object):
         reader = csv.reader(open(filename,'rb'))
         for proxy in reader:
             proxylist.append(proxy)
-            print proxy
         return proxylist
     
     def geturls(self,names):
         urls = []
         for name in names:
             if name != '':
+                time.sleep(1)
                 self.log.info(u'尝试爬取%s 信息' % name.decode('GBK'))
                 url = 'http://www.china-yao.com/?act=search&typeid=1&keyword='+name.decode('GBK')
                 htmlcontent = self.getresponsecontent(url)
@@ -87,10 +87,11 @@ class GetInfor(object):
                 for i in range(1,page+1):
                     newurl = url+'&page='+str(i)
                     urls.append(newurl)
+        print urls
         return urls
     
     def spider(self,urls,thread_num):
-        filename_error = u'%d号线程访问失败url列表.txt'.encode('GBK')
+        filename_error = u'N%dthread_errorlist.txt' % thread_num
 ##        n = 0
         for url in urls:
             htmlcontent = self.getresponsecontent(url)
@@ -119,7 +120,7 @@ class GetInfor(object):
 ##                n += 1
 ##                if n >= 5:
 ##                    break
-       # self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))
+##        self.log.info(u'数据爬取结束，共获取 %d条数据。' % len(items))
         
     def run(self,urls,thread):
         urls_list = []
@@ -174,8 +175,7 @@ class GetInfor(object):
         request = urllib2.Request(url.encode('utf8'),headers = Headers)
         proxy = random.choice(self.proxylist)
         server = proxy[2].lower() + r'://' + proxy[0] + ':' + proxy[1]
-        print server
-        print url
+        self.log.info(u'使用代理服务器 %s 访问  %s' % (server,url))
         opener = urllib2.build_opener(urllib2.ProxyHandler({proxy[2].lower():server}))
         urllib2.install_opener(opener)
         try:
@@ -185,8 +185,6 @@ class GetInfor(object):
             return ''
         else:
             self.log.info(u'返回URL: %s 数据成功' % url)
-            print '#'*10
-            print response.read()
             return response.read()
 
 if __name__ == '__main__':
