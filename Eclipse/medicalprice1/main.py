@@ -63,10 +63,15 @@ class GetInfor(object):
         urls = []
         for name in names:
             if name != '':
-                time.sleep(1)
                 self.log.info(u'尝试爬取%s 信息' % name.decode('GBK'))
                 url = 'http://www.china-yao.com/?act=search&typeid=1&keyword='+name.decode('GBK')
-                htmlcontent = self.getresponsecontent(url)
+                try:
+                    htmlcontent = self.getresponsecontent(url)
+                except:
+                    self.log.info(u'药品 %s 信息获取失败！' % name.decode('GBK'))
+                    with open('namelist_error.txt','a') as namelist_error:
+                        namelist_error.write(name+'\n')
+                    continue
                 if htmlcontent == '':
                     self.log.info(u'药品 %s 信息获取失败！' % name.decode('GBK'))
                     with open('namelist_error.txt','a') as namelist_error:
@@ -76,7 +81,7 @@ class GetInfor(object):
                 tagul = soup.find('ul',attrs={'class':'pagination'})
                 tagpage = tagul.find_all('a')
                 self.log.info(u'此药品信息共%d 页' % len(tagpage))
-                time.sleep(1)
+                time.sleep(4)
                 if len(tagpage) == 0:
                     page = 0
                 else:
@@ -87,36 +92,41 @@ class GetInfor(object):
                 for i in range(1,page+1):
                     newurl = url+'&page='+str(i)
                     urls.append(newurl)
-        print urls
+##        print urls
         return urls
     
     def spider(self,urls,thread_num):
         filename_error = u'N%dthread_errorlist.txt' % thread_num
 ##        n = 0
         for url in urls:
-            htmlcontent = self.getresponsecontent(url)
-            if htmlcontent == '':
-                self.log.info(u'%s 页面读取失败！' % url)
+            try:
+                htmlcontent = self.getresponsecontent_by_proxy(url)
+                if htmlcontent == '':
+                    self.log.info(u'%s 页面读取失败！' % url)
+                    with open(filename_error,'a') as f_error:
+                        f_error.write(url.encode('utf8')+'\n') 
+                    continue
+                soup = BeautifulSoup(htmlcontent,'lxml')
+                tagtbody = soup.find('tbody')
+                tagtr = tagtbody.find_all('tr')
+                self.log.info(u'该页面共有记录 %d 条，开始爬取' % len(tagtr))
+                for tr in tagtr:
+                    tagtd = tr.find_all('td')
+                    item = Item()
+                    item.mc = tagtd[0].get_text().strip()
+                    item.jx = tagtd[1].get_text().strip()
+                    item.gg = tagtd[2].get_text().strip()
+                    item.ghj = tagtd[3].get_text().strip()
+                    item.lsj = tagtd[4].get_text().strip()
+                    item.scqy = tagtd[5].get_text().strip()
+                    self.items.append(item)
+                self.log.info(u'页面%s 数据已保存' % url)
+                sleeptime = random.randint(2,5)
+                time.sleep(sleeptime)
+            except:
                 with open(filename_error,'a') as f_error:
-                    f_error.write(url+'\n') 
+                    f_error.write(url.encode('utf8')+'\n')
                 continue
-            soup = BeautifulSoup(htmlcontent,'lxml')
-            tagtbody = soup.find('tbody')
-            tagtr = tagtbody.find_all('tr')
-            self.log.info(u'该页面共有记录 %d 条，开始爬取' % len(tagtr))
-            for tr in tagtr:
-                tagtd = tr.find_all('td')
-                item = Item()
-                item.mc = tagtd[0].get_text().strip()
-                item.jx = tagtd[1].get_text().strip()
-                item.gg = tagtd[2].get_text().strip()
-                item.ghj = tagtd[3].get_text().strip()
-                item.lsj = tagtd[4].get_text().strip()
-                item.scqy = tagtd[5].get_text().strip()
-                self.items.append(item)
-            self.log.info(u'页面%s 数据已保存' % url)
-            sleeptime = random.randint(2,5)
-            time.sleep(sleeptime)
 ##                n += 1
 ##                if n >= 5:
 ##                    break
@@ -132,6 +142,7 @@ class GetInfor(object):
             urls_list.append(urls[length*i:length*i+length])
         self.log.info(u'开始多线程模式，线程数： %d' % thread)
         for j in range(1,thread+1):
+            time.sleep(1)
             t = threading.Thread(target=self.spider,args=(urls_list[j-1],j,))
             t.start()
         t.join()
@@ -171,6 +182,19 @@ class GetInfor(object):
         self.log.info(u'csv文件保存成功！')
     
     def getresponsecontent(self,url):
+        Headers = {"User-Agent":"Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11"}
+        request = urllib2.Request(url.encode('utf8'),headers = Headers)
+        response = urllib2.urlopen(request)
+        try:
+            response = urllib2.urlopen(request,timeout=3)
+        except:
+            self.log.error(u'返回 URL: %s 数据失败' % url)
+            return ''
+        else:
+            self.log.info(u'返回URL: %s 数据成功' % url)
+            return response.read()
+    
+    def getresponsecontent_by_proxy(self,url):
         Headers = {"User-Agent":"Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11"}
         request = urllib2.Request(url.encode('utf8'),headers = Headers)
         proxy = random.choice(self.proxylist)
