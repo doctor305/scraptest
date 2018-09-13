@@ -1,3 +1,9 @@
 eclipse.preferences.version=1
+encoding/cookies_test.py=utf-8
+encoding/getproxy.py=utf-8
+encoding/getproxy2.py=utf-8
 encoding/main.py=utf-8
 encoding/myLog.py=utf-8
+encoding/proxytest.py=utf-8
+encoding/test_csv.py=utf-8
+encoding/threadingtest.py=utf-8
